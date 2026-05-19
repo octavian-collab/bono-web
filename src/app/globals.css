@@ -79,6 +79,25 @@
 .ld-hero .hero-display { max-width: 980px; margin-bottom: 28px; }
 .ld-hero .hero-lead    { max-width: 680px; margin-bottom: 32px; }
 
+/* ── Hero split (text left · illustration right) ── */
+.ld-hero.split {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-48);
+  padding-bottom: var(--sp-56);
+}
+.ld-hero.split .hero-col-text { flex: 1; min-width: 0; }
+.ld-hero.split .hero-col-text .hero-display,
+.ld-hero.split .hero-col-text .hero-lead { max-width: none; }
+.ld-hero.split .hero-col-img {
+  flex: 0 0 420px;
+  align-self: flex-end;
+}
+@media (max-width: 768px) {
+  .ld-hero.split { flex-direction: column; }
+  .ld-hero.split .hero-col-img { display: none; }
+}
+
 /* ── Step card ── */
 .step .step-num {
   font-family: 'Fraunces', serif;
