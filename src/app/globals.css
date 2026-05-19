@@ -92,6 +92,7 @@
 .ld-hero.split .hero-col-img {
   flex: 0 0 420px;
   align-self: flex-start;
+  padding-top: 7px;
 }
 @media (max-width: 768px) {
   .ld-hero.split { flex-direction: column; }
