@@ -28,7 +28,7 @@ export default function CumAlegi() {
               <li className="t16">ai sau vei avea mai multe coduri CAEN</li>
               <li className="t16">te gândești la scalare și vrei să atragi investiții</li>
             </ul>
-            <Link href="/incepe" className="btn secondary" style={{ marginTop: 24 }}>
+            <Link href="/incepe" className="btn primary" style={{ marginTop: 24 }}>
               Înființează SRL gratuit
             </Link>
           </div>
@@ -47,7 +47,7 @@ export default function CumAlegi() {
               href="https://solo.ro"
               target="_blank"
               rel="noopener"
-              className="btn ghost"
+              className="btn secondary"
               style={{ marginTop: 24 }}
             >
               Deschide PFA pe solo.ro →
