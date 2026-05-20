@@ -99,6 +99,35 @@
   .ld-hero.split .hero-col-img { display: none; }
 }
 
+/* ── Calculator ── */
+.calc-inputs { display: flex; flex-direction: column; gap: var(--sp-24); margin-bottom: var(--sp-48); }
+.calc-slider-row { display: flex; flex-direction: column; gap: 8px; }
+.calc-slider-val { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+.calc-slider input[type="range"] {
+  width: 100%;
+  height: 4px;
+  accent-color: var(--c-accent);
+  cursor: pointer;
+}
+.calc-card-footer {
+  margin-top: auto;
+  padding-top: var(--sp-16);
+  border-top: 1px solid var(--c-rule-soft);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--sp-8);
+}
+.calc-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--sp-8);
+  padding-block: 6px;
+  border-bottom: 1px solid var(--c-rule-soft);
+}
+.calc-row:last-of-type { border-bottom: none; }
+
 /* ── Step card ── */
 .step .step-num {
   font-family: 'Fraunces', serif;
