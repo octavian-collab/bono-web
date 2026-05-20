@@ -2,12 +2,12 @@ import type { Metadata } from 'next'
 import Nav from '@/components/shared/Nav'
 import Footer from '@/components/shared/Footer'
 import Faq from '@/components/shared/Faq'
-import CtaStrip from '@/components/shared/CtaStrip'
 import TaxCalculator from '@/components/calculator/TaxCalculator'
 import CumAlegi from '@/components/calculator/CumAlegi'
 import DiferentePFASRL from '@/components/calculator/DiferentePFASRL'
 import QuizPFASRL from '@/components/calculator/QuizPFASRL'
 import InCurandBono from '@/components/calculator/InCurandBono'
+import GataDeStart from '@/components/calculator/GataDeStart'
 import { FAQ_CALCULATOR } from '@/data/faq-calculator'
 
 export const metadata: Metadata = {
@@ -65,11 +65,11 @@ export default function CalculatorTaxePage() {
           columns={2}
         />
 
+        {/* Gata de start — CTA pink */}
+        <GataDeStart />
+
         {/* In curând de la Bono */}
         <InCurandBono />
-
-        {/* CTA */}
-        <CtaStrip />
       </main>
       <Footer />
     </>

@@ -439,6 +439,9 @@
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
+  .gata-de-start-img { display: none; }
+  .gata-de-start-inner { padding: 40px 28px !important; }
+  .gata-de-start-features { gap: 20px !important; }
   .ld-nav { padding: 18px var(--sp-24); }
   .ld-nav .nav-links { display: none; }
   .ld-hero { padding: 40px var(--sp-24) 64px; }
