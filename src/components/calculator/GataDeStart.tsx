@@ -43,7 +43,7 @@ export default function GataDeStart() {
             </h2>
             <p
               className="t-lead"
-              style={{ color: 'rgba(255,255,255,0.65)', marginBottom: 40, maxWidth: 520 }}
+              style={{ color: '#fff', marginBottom: 40, maxWidth: 520 }}
             >
               Cu BONO îți înființezi firma gratuit, de pe telefon în doar câteva minute.
               Ai nevoie doar de buletin și nici nu trebuie să plătești vreun abonament
