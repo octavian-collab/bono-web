@@ -36,50 +36,28 @@ export default function GataDeStart() {
   return (
     <div className="ld-sec-wrap bg-page">
       <section className="ld-sec" style={{ paddingBlockStart: 0 }}>
-        {/*
-          Accent CTA card — background uses --c-accent token.
-          No card variant covers pink bg, so background is set via token var().
-          Text colors follow DS rule "Pe Dark: #fff heading + rgba(255,255,255,0.65) body".
-          Border removed per DS rule "Card dark → FĂRĂ border".
-        */}
-        <div
-          className="card gata-de-start-inner"
-          style={{
-            background: 'var(--c-accent)',
-            border: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '48px',
-            overflow: 'hidden',
-            position: 'relative',
-          }}
-        >
-          {/* Text content */}
+        <div className="card dark" style={{ padding: '56px' }}>
           <div style={{ flex: '1 1 0', minWidth: 0 }}>
-            <h2
-              className="t-h1"
-              style={{ color: '#fff', marginBottom: '20px' }}
-            >
+            <h2 className="t-h1" style={{ color: '#fff', marginBottom: 20 }}>
               Gata de start?
             </h2>
             <p
               className="t-lead"
-              style={{ color: 'rgba(255,255,255,0.65)', marginBottom: '40px', maxWidth: '520px' }}
+              style={{ color: 'rgba(255,255,255,0.65)', marginBottom: 40, maxWidth: 520 }}
             >
-              Cu BONO îți înființezi firma gratuit, de pe telefon în doar câteva minute. Ai
-              nevoie doar de buletin și nici nu trebuie să plătești vreun abonament la alte
-              servicii.
+              Cu BONO îți înființezi firma gratuit, de pe telefon în doar câteva minute.
+              Ai nevoie doar de buletin și nici nu trebuie să plătești vreun abonament
+              la alte servicii.
             </p>
 
-            {/* Feature items */}
             <div
               className="gata-de-start-features"
               style={{
                 display: 'flex',
-                gap: '32px',
+                gap: 40,
                 flexWrap: 'wrap',
-                marginBottom: '40px',
-                color: 'rgba(255,255,255,0.90)',
+                marginBottom: 40,
+                color: 'rgba(255,255,255,0.65)',
               }}
             >
               {FEATURES.map((f) => (
@@ -89,8 +67,8 @@ export default function GataDeStart() {
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    gap: '12px',
-                    maxWidth: '120px',
+                    gap: 12,
+                    maxWidth: 120,
                     textAlign: 'center',
                   }}
                 >
@@ -100,20 +78,8 @@ export default function GataDeStart() {
               ))}
             </div>
 
-            {/*
-              Button on accent bg: DS has no built-in "white on accent" variant.
-              Closest correct choice: .btn.lg with background: var(--c-white) and
-              color: var(--c-ink) — both token-based, no hex.
-            */}
-            <Link
-              href="/incepe"
-              className="btn lg"
-              style={{
-                background: 'var(--c-white)',
-                color: 'var(--c-ink)',
-              }}
-            >
-              Vreau SRL gratuit →
+            <Link href="/incepe" className="btn primary lg">
+              Vreau SRL gratuit
             </Link>
           </div>
         </div>
