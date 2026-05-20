@@ -10,6 +10,12 @@ function ResultCard({ result }: { result: TaxResult }) {
   const rows = result.breakdown.filter(r => r.label !== 'Total taxe' && r.label !== 'Suma facturată lunar')
   const total = result.breakdown.find(r => r.label === 'Total taxe')
 
+  const subLabel = result.label === 'SRL Micro'
+    ? 'salariu + dividende'
+    : result.label === 'SRL Profit'
+      ? 'dividende'
+      : null
+
   return (
     <div className={`card${result.isBest ? ' feat' : ''}`} style={{ display: 'flex', flexDirection: 'column' }}>
       {/* Header */}
@@ -17,7 +23,7 @@ function ResultCard({ result }: { result: TaxResult }) {
         <div>
           <div className="t-eyebrow" style={{ marginBottom: 8 }}>
             <span className="dot" />
-            {result.label}
+            {result.isBest ? '🏆 ' : ''}{result.label}
           </div>
           <p className="t18" style={{ fontVariantNumeric: 'tabular-nums' }}>
             {fmt(result.venBrut)}
@@ -41,7 +47,7 @@ function ResultCard({ result }: { result: TaxResult }) {
                 whiteSpace: 'nowrap',
               }}
             >
-              {row.value < 0 ? '− ' : ''}{fmt(row.value)}
+              {row.value < 0 ? '− ' : ''}{fmt(row.value)}
             </span>
           </div>
         ))}
@@ -65,58 +71,94 @@ function ResultCard({ result }: { result: TaxResult }) {
         )}
       </div>
 
+      {/* PFA solo.ro link */}
+      {result.label === 'PFA' && (
+        <a href="https://solo.ro" target="_blank" rel="noopener" className="btn ghost" style={{ width: '100%', marginTop: 8 }}>
+          Deschide PFA pe solo.ro →
+        </a>
+      )}
+
       {/* Footer — bani în mână */}
       <div className="calc-card-footer">
         <span className="t14">Bani în mână</span>
-        <span
-          className="t-h2"
-          style={{
-            fontVariantNumeric: 'tabular-nums',
-            color: result.isBest ? 'var(--c-accent)' : 'var(--c-ink)',
-          }}
-        >
-          {fmt(result.baniInMana)}
-        </span>
+        <div style={{ textAlign: 'right' }}>
+          <span
+            className="t-h2"
+            style={{
+              fontVariantNumeric: 'tabular-nums',
+              color: result.isBest ? 'var(--c-accent)' : 'var(--c-ink)',
+              display: 'block',
+            }}
+          >
+            {fmt(result.baniInMana)}
+          </span>
+          {subLabel && (
+            <span className="t14" style={{ color: 'var(--c-fog)' }}>{subLabel}</span>
+          )}
+        </div>
       </div>
     </div>
   )
 }
 
 export default function TaxCalculator() {
+  const [venitRaw, setVenitRaw] = useState('10.000')
   const [venit, setVenit] = useState(10000)
   const [cheltuieli, setCheltuieli] = useState(0.20)
+  const [showDetails, setShowDetails] = useState(false)
+
+  const handleVenitChange = (val: string) => {
+    setVenitRaw(val)
+    const normalized = val.replace(/\./g, '').replace(',', '.')
+    const parsed = parseFloat(normalized)
+    if (!isNaN(parsed) && parsed > 0) {
+      setVenit(parsed)
+    }
+  }
 
   const results = calcAll(venit, cheltuieli)
+  const sorted = [...results].sort((a, b) => b.baniInMana - a.baniInMana)
+  const winner = sorted[0]
+  const second = sorted[1]
+  const diff = winner.baniInMana - second.baniInMana
+
+  const toggleDetails = () => setShowDetails(prev => !prev)
 
   return (
     <div>
       {/* Input card */}
       <div className="card tonal" style={{ marginBottom: 32 }}>
         <div className="calc-inputs">
-          {/* Venit slider */}
+          {/* Venit text input */}
           <div className="calc-slider-row">
-            <div className="calc-slider-val">
-              <span className="t-eyebrow">Venit lunar facturat</span>
-              <span className="t18" style={{ fontVariantNumeric: 'tabular-nums' }}>
-                {fmt(venit)}
-              </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <span className="t-eyebrow" style={{ flex: '0 0 auto' }}>Venit lunar facturat</span>
+              <div style={{
+                flex: 1,
+                border: '1px solid var(--c-rule-card)',
+                borderRadius: 'var(--r-md)',
+                padding: '8px 12px',
+                background: 'var(--c-white)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+              }}>
+                <input
+                  type="text"
+                  inputMode="decimal"
+                  placeholder="ex: 10.500"
+                  value={venitRaw}
+                  onChange={e => handleVenitChange(e.target.value)}
+                  className="t16"
+                  style={{ width: '100%', border: 'none', outline: 'none', background: 'transparent' }}
+                  aria-label="Venit lunar facturat"
+                />
+                <span className="t16" style={{ color: 'var(--c-fog)', whiteSpace: 'nowrap' }}>Lei</span>
+              </div>
             </div>
-            <div className="calc-slider">
-              <input
-                type="range"
-                min={1000}
-                max={80000}
-                step={500}
-                value={venit}
-                onChange={(e) => setVenit(Number(e.target.value))}
-                aria-label="Venit lunar facturat"
-                style={{ accentColor: 'var(--c-accent)' }}
-              />
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <span className="t14">1.000 Lei</span>
-              <span className="t14">80.000 Lei</span>
-            </div>
+            <p className="t14" style={{ color: 'var(--c-fog)', marginTop: 4 }}>
+              Introdu suma brută, facturată, înainte de taxe
+            </p>
           </div>
 
           {/* Cheltuieli slider */}
@@ -152,6 +194,30 @@ export default function TaxCalculator() {
         {results.map((result) => (
           <ResultCard key={result.label} result={result} />
         ))}
+      </div>
+
+      {/* Concluzie block */}
+      <div className="card tonal" style={{ marginTop: 32 }}>
+        <div className="t-eyebrow" style={{ marginBottom: 12 }}>
+          <span className="dot" />
+          Concluzie
+        </div>
+        <p className="t16" style={{ marginBottom: 16 }}>
+          La venitul de <span style={{ fontVariantNumeric: 'tabular-nums' }}>{fmt(venit)}</span>,{' '}
+          <strong>{winner.label}</strong> este mai avantajos cu{' '}
+          <span style={{ fontVariantNumeric: 'tabular-nums' }}>{fmt(diff)}</span> față de{' '}
+          <strong>{second.label}</strong>.
+        </p>
+        <button className="btn ghost sm" onClick={toggleDetails}>
+          Detalii despre calcule {showDetails ? '↑' : '↓'}
+        </button>
+        {showDetails && (
+          <p className="t14" style={{ color: 'var(--c-fog)', marginTop: 12 }}>
+            Calculele sunt bazate pe legislația fiscală în vigoare în 2026. PFA: CAS 25%, CASS 10%,
+            impozit venit 10%. SRL Micro: impozit 1% pe venituri, dividende 16%, CASS plafonată.
+            SRL Profit: impozit profit 16%, dividende 16%, CASS plafonată.
+          </p>
+        )}
       </div>
     </div>
   )

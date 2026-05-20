@@ -4,6 +4,10 @@ import Footer from '@/components/shared/Footer'
 import Faq from '@/components/shared/Faq'
 import CtaStrip from '@/components/shared/CtaStrip'
 import TaxCalculator from '@/components/calculator/TaxCalculator'
+import CumAlegi from '@/components/calculator/CumAlegi'
+import DiferentePFASRL from '@/components/calculator/DiferentePFASRL'
+import QuizPFASRL from '@/components/calculator/QuizPFASRL'
+import InCurandBono from '@/components/calculator/InCurandBono'
 import { FAQ_CALCULATOR } from '@/data/faq-calculator'
 
 export const metadata: Metadata = {
@@ -43,6 +47,15 @@ export default function CalculatorTaxePage() {
           </section>
         </div>
 
+        {/* Cum alegi */}
+        <CumAlegi />
+
+        {/* Diferente PFA SRL */}
+        <DiferentePFASRL />
+
+        {/* Quiz */}
+        <QuizPFASRL />
+
         {/* FAQ */}
         <Faq
           eyebrow="Întrebări frecvente"
@@ -51,6 +64,9 @@ export default function CalculatorTaxePage() {
           items={FAQ_CALCULATOR}
           columns={2}
         />
+
+        {/* In curând de la Bono */}
+        <InCurandBono />
 
         {/* CTA */}
         <CtaStrip />
