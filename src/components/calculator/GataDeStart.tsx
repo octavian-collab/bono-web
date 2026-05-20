@@ -57,7 +57,7 @@ export default function GataDeStart() {
                 gap: 40,
                 flexWrap: 'wrap',
                 marginBottom: 40,
-                color: 'rgba(255,255,255,0.65)',
+                color: '#fff',
               }}
             >
               {FEATURES.map((f) => (
